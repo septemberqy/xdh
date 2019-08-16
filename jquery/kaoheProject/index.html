@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script src="./public/jquery-3.4.1.min.js"></script>
+	<link rel="stylesheet" href="index.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+	<!-- 只要一个div的class是social-share即可，内容会自动初始化 -->
+
+
+
+	<style>
+
+		
+	</style>
+</head>
+<body>
+
+	<div class="top">
+		<div class="logo"></div>
+		<ul class="list">
+			<li>首页</li>
+			<li>发现</li>
+			<li>最新</li>
+			<li>活动</li>
+			<li>美素</li>
+			<li>设计服务</li>
+			<li>花瓣LIVE</li>
+			<li>花瓣Pro</li>
+		</ul>
+		<input type="text" class="search" placeholder="搜索你喜欢的">
+		<div class="searchbtn"></div>
+		<div class="right">
+			<div class="rightLeft"></div>
+			<div class="rightRight"></div>
+		</div>
+	</div>
+
+
+	<div class="social-share"  data-disabled="google,twitter,facebook,diandian,linkedin,qzon,douban,e,wx" data-title="分了个分,享了个享" style="margin-top:60px"></div>
+	
+	<div id="box">
+		<!-- <img class="img do" src="imgs/2.jpeg">
+		<img class="img do" src="imgs/3.jpg">
+		<img class="img do" src="imgs/4.jpg">
+		<img class="img do" src="imgs/5.jpg">
+		<img class="img do" src="imgs/6.jpg">
+		<img class="img do" src="imgs/7.jpg">
+		<img class="img do" src="imgs/8.jpg">
+		<img class="img do" src="imgs/9.jpg">
+		<img class="img do" src="imgs/10.jpg">
+		<img class="img do" src="imgs/11.jpg">
+		<img class="img do" src="imgs/12.jpg">
+		<img class="img do" src="imgs/13.jpg">
+		<img class="img do" src="imgs/14.jpg"> -->
+
+
+		<!-- <div class="imgBox do" isLove=0 isPl=0>
+			<img src="./imgs/1.jpg">
+			<div class="love"><div class="lovespan"></div></div>
+			<p class="title">美女</p>
+			<div class="act">
+				<i class="cj"></i>
+				<span>19</span>
+				<i class="sc left"></i>
+				<span>5</span>
+				<div class="pl">
+				</div>
+			</div>
+		</div>
+
+		
+
+		<div class="imgBox do">
+			<img src="./imgs/2.jpg">
+			<p class="title">美女</p>
+			<p class="act"><i class="cj"></i><span>19</span><i class="sc left"></i><span>5</span></p>
+		</div>
+		<div class="imgBox do">
+			<img src="./imgs/3.jpg">
+			<p class="title">美女</p>
+			<p class="act"><i class="cj"></i><span>19</span><i class="sc left"></i><span>5</span></p>
+		</div>
+		<div class="imgBox do">
+			<img src="./imgs/4.jpg">
+			<p class="title">美女</p>
+			<p class="act"><i class="cj"></i><span>19</span><i class="sc left"></i><span>5</span></p>
+		</div>
+		<div class="imgBox do">
+			<img src="./imgs/5.jpg">
+			<p class="title">美女</p>
+			<p class="act"><i class="cj"></i><span>19</span><i class="sc left"></i><span>5</span></p>
+		</div>
+		<div class="imgBox do">
+			<img src="./imgs/6.jpg">
+			<p class="title">美女</p>
+			<p class="act"><i class="cj"></i><span>19</span><i class="sc left"></i><span>5</span></p>
+		</div>
+		<div class="imgBox do">
+			<img src="./imgs/7.jpg">
+			<p class="title">美女</p>
+			<p class="act"><i class="cj"></i><span>19</span><i class="sc left"></i><span>5</span></p>
+		</div>
+		<div class="imgBox do">
+			<img src="./imgs/8.jpg">
+			<p class="title">美女</p>
+			<p class="act"><i class="cj"></i><span>19</span><i class="sc left"></i><span>5</span></p>
+		</div>
+		<div class="imgBox do">
+			<img src="./imgs/9.jpg">
+			<div class="love"></div>
+			<p class="title">美女</p>
+			<p class="act"><i class="cj"></i><span>19</span><i class="sc left"></i><span>5</span></p>
+		</div>
+		<div class="imgBox do">
+			<img src="./imgs/10.jpg">
+			<p class="title">美女</p>
+			<p class="act"><i class="cj"></i><span>19</span><i class="sc left"></i><span>5</span></p>
+		</div> -->
+	</div>
+
+
+</body>
+<script>
+	
+	var page=0;
+
+	var tmp = '<div class="imgBox do"  isLove=0 isId=0 isPl=0><img src="./imgs/{{url}}"><div class="love"><div class="lovespan"></div></div><div class="pl"></div><p class="title">{{imgName}}</p><div class="act"><i class="cj"></i><span>{{caiji}}</span><i class="sc left"></i><span>{{fenxiang}}</span><div class="pl"></div></div></div>'
+
+	var pltmp='<div class="plbox"><div class="up"><div class="left"><img src="./public/head.jpeg" class="head"></div><div class="right"><textarea placeholder="发表评论"></textarea></div></div><div class="down"><button class="btn">添加评论</button></div></div>'
+
+	pbt();
+
+	function pbt()
+	{
+		var i=0;
+		//多少列
+		var column=5;
+		//数组
+		var imgArr = new Array();
+		//每列宽度
+		var imgWidth=220;
+		//图片左右间距
+		var pad = 15;
+		//图片上下间距
+		var hpad = 20;
+		$("#box .imgBox").each(function(){
+
+			var cur = getMin(imgArr,Math.min.apply(null,imgArr));
+
+			if(i<column)
+			{
+				$(this).css({"left":(imgWidth*i+pad*i)+"px"});
+
+				imgArr.push($(this).height());
+
+				$(this).attr("isId",i);
+			}
+			else
+			{
+				$(this).css({"left":(imgWidth*cur+pad*cur)+"px","top":(imgArr[cur]+hpad)+"px"});
+
+				$(this).animate({"opacity":1},500);
+
+				if($(this).find("img")[0].complete)
+				{
+					imgArr[cur] = imgArr[cur]+hpad+$(this).height();
+				}	
+				$(this).attr("isId",cur);
+			}
+			
+			i++;
+		});
+
+		$(".imgBox").mousemove(function(){
+				$(this).css({"cursor":"pointer"});
+				$(this).css({"transform":"translate(0px,-3px)"});
+				$(this).css({"box-shadow":"0 3px 3px 3px #233"});
+				$(this).find(".love").css({"opacity":1});
+		});
+
+		$(".imgBox").mouseleave(function(){
+			$(this).css({"transform":"translate(0px,0px)"});
+			$(this).css({"box-shadow":""});
+			$(this).find(".love").css({"opacity":0});
+
+			$(this).find(".pl").css({"opacity":0});
+		});
+
+		$(".act").mousemove(function(){
+			$(this).find(".pl").css({"opacity":1});
+		});
+
+		$(".pl").mousemove(function(){
+			$(this).css({"opacity":1});
+		});
+
+		$(".imgBox").find(".act").mouseleave(function(){
+
+			$(this).parent().find(".pl").css({"opacity":0});
+		
+		});
+
+		$(".love").off("click").on("click",function(){
+
+			var isLove = $(this).parent().attr("isLove")==0?1:0;
+
+			$(this).parent().attr("isLove",isLove);
+			
+			if(isLove==1)
+			{
+				$(this).find(".lovespan").css({"background-position":"0px -90px"});
+			}
+			else
+			{
+				$(this).find(".lovespan").css({"background-position":"0px 0px"});
+			}
+		});
+
+		$(".pl").off("click").on("click",function(){
+			$(this).parent().parent().find(".plbox").remove();
+			
+			$(this).parent().parent().append(pltmp);
+
+			var isId = $(this).parent().parent().attr("isId");
+			
+			var _this = $(this).parent().parent();
+
+			var isPl = _this.attr("isPl");
+
+			$(this).parent().parent().nextAll().each(function(){
+				if($(this).attr("isId")==isId)
+				{
+					if(isPl==0)
+					{
+						$(this).css({"top":parseInt($(this).css("top"))+100+"px"});
+
+						_this.attr("isPl",1);
+					}
+				}
+			});
+		});
+	}
+
+
+	$(document).ready(
+
+		function(){
+			getImg();
+			$(document).scroll(function(){
+			var dh = $(document).height();
+			var wh = $(window).height();
+			var sh = $(document).scrollTop();
+			if(dh-(wh+sh)<=3)
+			{
+				getImg();
+			}
+		});
+
+
+	});
+
+	function getImg()
+	{
+		$.ajax({
+					url:"http://huaban.qy.com/showImg",
+					data:{page,page},
+					success:function(data){
+						$(data).each(function(){
+							var nImgBox = tmp.replace("{{url}}",this.url);
+							nImgBox = nImgBox.replace("{{imgName}}",this.imgName);
+							nImgBox = nImgBox.replace("{{imgName}}",this.imgName);
+							nImgBox = nImgBox.replace("{{caiji}}",this.caiji);
+							nImgBox = nImgBox.replace("{{fenxiang}}",this.fenxiang);
+							$("#box").append(nImgBox);
+						});
+						page+=1;
+						pbt();
+
+					},
+					error:function(data){
+						console.log(err);
+					}
+				});
+	}
+
+
+	function getMin(arr,num)
+	{
+		for(var i=0;i<arr.length;i++)
+		{
+			if(arr[i]==num)
+			{
+				return i;
+			}
+		}
+	}
+
+	$(".top .list li").mousemove(function(){
+		$(this).css({"color":"red","cursor":"pointer"});
+	});
+
+	$(".top .list li").mouseleave(function(){
+		$(this).css({"color":"","cursor":""});
+	});
+	
+</script>
+</html>
